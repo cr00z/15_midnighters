@@ -42,4 +42,3 @@ if __name__ == '__main__':
         print('\t{}\n'.format(
             '\n\t'.join([time.strftime('%d.%m.%Y %H:%M:%S') for time in times])
         ))
-
