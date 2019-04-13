@@ -1,6 +1,6 @@
 import requests
-import pytz
-import datetime
+from pytz import timezone
+from datetime import datetime
 
 
 MIDNIGHT = 0
@@ -23,8 +23,8 @@ def load_attempts():
 
 
 def get_midnighter_candidate(user):
-    server_time = datetime.datetime.utcfromtimestamp(user['timestamp'])
-    client_time = pytz.timezone(user['timezone']).fromutc(server_time)
+    client_tz = timezone(user['timezone'])
+    client_time = datetime.fromtimestamp(user['timestamp'], tz=client_tz)
     if MIDNIGHT <= client_time.hour < EARLY_MORNING:
         return user['username'], client_time
     else:
