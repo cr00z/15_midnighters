@@ -3,7 +3,6 @@ import pytz
 import datetime
 
 
-FIRST_PAGE = 1
 MIDNIGHT = 0
 EARLY_MORNING = 6
 
@@ -14,9 +13,13 @@ def get_devman_api_page(page):
 
 
 def load_attempts():
-    num_of_pages = get_devman_api_page(FIRST_PAGE)['number_of_pages']
-    for page in range(1, num_of_pages + 1):
-        yield from get_devman_api_page(page)['records']
+    page_num = 1
+    while True:
+        attempts_info = get_devman_api_page(page_num)
+        yield from attempts_info['records']
+        if page_num == attempts_info['number_of_pages']:
+            break
+        page_num += 1
 
 
 def get_midnighter_candidate(user):
