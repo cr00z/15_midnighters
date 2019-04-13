@@ -16,9 +16,7 @@ def get_devman_api_page(page):
 def load_attempts():
     num_of_pages = get_devman_api_page(FIRST_PAGE)['number_of_pages']
     for page in range(1, num_of_pages + 1):
-        user_records = get_devman_api_page(page)['records']
-        for user_record in user_records:
-            yield user_record
+        yield from get_devman_api_page(page)['records']
 
 
 def get_midnighter_candidate(user):
