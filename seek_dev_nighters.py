@@ -1,6 +1,7 @@
 import requests
 from pytz import timezone
 from datetime import datetime
+from collections import defaultdict
 
 
 MIDNIGHT = 0
@@ -30,11 +31,15 @@ def get_midnighter_candidate(user):
 
 
 if __name__ == '__main__':
-    for user_record in load_attempts():
-        midnighter = get_midnighter_candidate(user_record)
+    midnighters = defaultdict(list)
+    for attempt in load_attempts():
+        midnighter = get_midnighter_candidate(attempt)
         if midnighter:
             midnighter_nick, midnighter_time = midnighter
-            print('{} at {}'.format(
-                midnighter_nick,
-                midnighter_time.strftime('%d.%m.%Y %H:%M:%S')
-            ))
+            midnighters[midnighter_nick].append(midnighter_time)
+    for nick, times in dict(midnighters).items():
+        print(nick)
+        print('\t{}\n'.format(
+            '\n\t'.join([time.strftime('%d.%m.%Y %H:%M:%S') for time in times])
+        ))
+

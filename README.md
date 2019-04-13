@@ -23,9 +23,19 @@ Example of script launch on Linux, Python 3.5:
 ```bash
 
 $ python seek_dev_nighters.py
-AntonKoltypin at 11.04.2019 00:15:10
-andreishkilev1993 at 10.04.2019 02:24:25
-andreishkilev1993 at 10.04.2019 02:08:40
+AntonKoltypin
+        11.04.2019 00:15:10
+
+constantinovich
+        03.04.2019 05:37:06
+        02.04.2019 00:43:17
+        26.03.2019 00:31:10
+        19.03.2019 00:14:57
+        13.03.2019 00:03:29
+
+ekluev
+        29.03.2019 00:33:43
+        29.03.2019 00:21:41
 ...[skipped]...
 
 ```
