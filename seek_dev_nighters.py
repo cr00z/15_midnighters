@@ -27,8 +27,6 @@ def get_midnighter_candidate(user):
     client_time = datetime.fromtimestamp(user['timestamp'], tz=client_tz)
     if MIDNIGHT <= client_time.hour < EARLY_MORNING:
         return user['username'], client_time
-    else:
-        return None
 
 
 if __name__ == '__main__':
