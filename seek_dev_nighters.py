@@ -23,11 +23,14 @@ def load_attempts():
         page_num += 1
 
 
-def get_midnighter_candidate(user):
-    client_tz = timezone(user['timezone'])
-    client_time = datetime.fromtimestamp(user['timestamp'], tz=client_tz)
+def get_client_time(time_zone, time_stamp):
+    return datetime.fromtimestamp(time_stamp, tz=timezone(time_zone))
+
+
+def get_midnighter_candidate(attempt):
+    client_time = get_client_time(attempt['timezone'], attempt['timestamp'])
     if MIDNIGHT <= client_time.hour < EARLY_MORNING:
-        return user['username'], client_time
+        return attempt
 
 
 if __name__ == '__main__':
@@ -35,9 +38,10 @@ if __name__ == '__main__':
     for attempt in load_attempts():
         midnighter = get_midnighter_candidate(attempt)
         if midnighter:
-            midnighter_nick, midnighter_time = midnighter
-            midnighters[midnighter_nick].append(midnighter_time)
-    for nick, times in dict(midnighters).items():
+            midnighters[midnighter['username']].append(
+                get_client_time(attempt['timezone'], attempt['timestamp'])
+            )
+    for nick, times in midnighters.items():
         print(nick)
         print('\t{}\n'.format(
             '\n\t'.join([time.strftime('%d.%m.%Y %H:%M:%S') for time in times])
